@@ -11,9 +11,18 @@ app.get('/', (req, res) => {
   res.send('Here, we go!')
 })
 
-// Get all todo
+// Get all todo (for postman tests)
 app.get('/todo', (req, res) => {
   pool.query(`select * from todo`, (err, result)=>{
+    if(!err){
+      res.send(result.rows);
+    }
+  });
+});
+
+// Get todo by id (for postman tests)
+app.get('/todo/:id', (req, res) => {
+  pool.query(`select * from todo where id=${req.params.id}`, (err, result)=>{
     if(!err){
       res.send(result.rows);
     }
@@ -24,7 +33,7 @@ app.get('/todo', (req, res) => {
 app.post('/todo', (req, res)=> {
   const todo = req.body;
   let insertQuery = `insert into todo(id, description) values(${todo.id}, '${todo.description}')`
-  //let insertQuery = `insert into todo(id, description) values(4, 'Move the couch')`
+  
   pool.query(insertQuery, (err, result)=>{
     if(!err){
       res.send('New todo created!')
