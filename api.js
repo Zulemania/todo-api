@@ -33,7 +33,18 @@ app.post('/todo', (req, res)=> {
   })
 });
 
+// Update existing todo
+app.put('todo/:id', (req, res)=> {
+  let todo = req.body;
+  let updateQuery = `update todo set description = '${todo.description}', where id = ${todo.id}`
 
+  pool.query(updateQuery, (err, result)=>{
+    if(!err){
+      res.send('Now that went well!')
+    }
+    else{console.log(err.message)}
+  })
+})
 
 
 
