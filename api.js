@@ -1,14 +1,14 @@
 const express = require('express');
-const bodyParser = require("body-parser");
-const pool = require('./model.js')
-console.log(pool)
-
-
+const pool = require('./model.js');
 const app = express();
+
+
+const bodyParser = require("body-parser");
+app.use(bodyParser.json());
 
 // Test Endpoint
 app.get('/', (req, res) => {
-  res.send('Okay, that works!')
+  res.send('Here, we go!')
 })
 
 // Get all todo
@@ -19,6 +19,21 @@ app.get('/todo', (req, res) => {
     }
   });
 });
+
+// Create new todo
+app.post('/todo', (req, res)=> {
+  const todo = req.body;
+  let insertQuery = `insert into todo(id, description) values(${todo.id}, '${todo.description}')`
+  //let insertQuery = `insert into todo(id, description) values(4, 'Move the couch')`
+  pool.query(insertQuery, (err, result)=>{
+    if(!err){
+      res.send('New todo created!')
+    }
+    else{ console.log(err.message) }
+  })
+});
+
+
 
 
 
