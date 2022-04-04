@@ -1,13 +1,25 @@
-const http = require('http')
+const express = require('express')
+const bodyParser = require("body-parser");
+const knex = require('knex');
 
-const port = process.env.PORT || 3000
+const db = knex({
+  client: 'pg', // postgres
+  connection: {
+    host : '127.0.0.1',
+    port : 3306,
+    user : 'cynthiachisom',
+    password : 'postgres',
+    database : 'todo_api'
+  }
+});
 
-const server = http.createServer((req, res) => {
-  res.statusCode = 200
-  res.setHeader('Content-Type', 'text/html')
-  res.end('<h1>Well, it works!!!</h1>')
+const app = express()
+
+app.get('/', (req, res) => {
+  res.send('Okay, that works!')
 })
 
-server.listen(port, () => {
-  console.log(`Server running at port ${port}`)
+// server port connection
+app.listen(3000, () => {
+  console.log(`app listening on port 3000`)
 })
