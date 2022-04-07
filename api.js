@@ -8,7 +8,7 @@ app.use(bodyParser.json());
 
 // Test Endpoint
 app.get('/', (req, res) => {
-  res.send('Here, we go!')
+  res.send('Here we go!')
 })
 
 // Get all todo (for postman tests)
