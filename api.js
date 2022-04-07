@@ -33,7 +33,7 @@ app.get('/todo/:id', (req, res) => {
 app.post('/todo', (req, res)=> {
   const todo = req.body;
   let insertQuery = `insert into todo(id, description) values(${todo.id}, '${todo.description}')`
-  
+
   pool.query(insertQuery, (err, result)=>{
     if(!err){
       res.send('New todo created!')
@@ -53,7 +53,7 @@ app.put('todo/:id', (req, res)=> {
     }
     else{console.log(err.message)}
   })
-})
+});
 
 
 
